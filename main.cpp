@@ -3,39 +3,25 @@
 
 #include "chess/bitboard.h"
 #include "chess/types.h"
+#include "chess/attacks.h"
 
 void printBitboard(Bitboard bb) {
+	std::cout << '\n';
+	for (int square = 63; square >= 0; --square) {
+		if ((square + 1) % 8 == 0) { std::cout << (1 + square / 8) << "| "; }
 
-	for (int i = 63; i >= 0; i--) {
-		bool isBitSet{ static_cast<bool>((bb >> i) & 1ULL) };
-		if (isBitSet)
-		{
-			std::cout << "1 ";
-		}
-			
-		else
-		{
-			std::cout << "0 ";
-		}
-
-		if (i % 8 == 0)
-		{
-			std::cout << '\n';
-		}
+		std::cout << ((bb >> square) & 1) << ' ';
+		if (square % 8 == 0) { std::cout << '\n'; }
 	}
 
-	std::cout << "H G F E D C B A" << std::endl;
+	std::cout << "   H G F E D C B A";
+	std::cout << '\n';
 }
 
 
 int main() {
-	printBitboard(notHFile);
-	std::cout << countBits(notHFile) << std::endl;
-
-	std::cout << getLSB(notAFile) << std::endl;
-
-	Bitboard test{ 23402340 }; 
+	Bitboard test{ 0ULL };
+	setBit(test, A7);
 	printBitboard(test);
-	printBitboard(mirrorHorizontal(test));
-	printBitboard(mirrorVertical(test));
+	printBitboard(maskPawnAttacks(BLACK, A7));
 }

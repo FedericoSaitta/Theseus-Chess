@@ -3,11 +3,14 @@
 #include <cstdint>
 #include <cassert>
 #include <cstdlib>
+#include <intrin0.inl.h>
 
 using Bitboard = std::uint64_t;
 
-constexpr Bitboard notAFile{ 0xFEFEFEFEFEFEFEFE };
-constexpr Bitboard notHFile{ 0x7F7F7F7F7F7F7F7F };
+constexpr Bitboard notAFile{ 18374403900871474942ULL };
+constexpr Bitboard notHFile{ 9187201950435737471ULL };
+constexpr Bitboard notHGFile{ 4557430888798830399ULL };
+constexpr Bitboard notABFile{ 18229723555195321596ULL };
 
 inline void setBit(Bitboard& bb, const int square) { bb |= (1ULL << square); }
 inline void popBit(Bitboard& bb, const int square) { bb &= ~(1ULL << square); }
