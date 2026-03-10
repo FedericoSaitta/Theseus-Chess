@@ -6,4 +6,6 @@
 struct Position {
 	Bitboard pieces[12]; 
 	Bitboard occupancies[3];
+
+	Side sideToMove;
 };

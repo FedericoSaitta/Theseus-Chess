@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_executable(Theseus
 	"main.cpp"
-    "chess/bitboard.h" "chess/position.h" "chess/types.h" "chess/init.h" "chess/attacks.h" "chess/init.cpp" "chess/attacks.cpp")
+    "chess/bitboard.h" "chess/position.h" "chess/types.h" "chess/init.h" "chess/attacks.h" "chess/init.cpp" "chess/attacks.cpp" "chess/util.h" "chess/util.cpp")
 
 if(MSVC)
     # Debug: all warnings, full debug info
