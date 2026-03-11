@@ -18,13 +18,6 @@ void initLeaperAttacks() {
 
 		knightAttacks[sq] = maskKnightAttacks(sq);
 		kingAttacks[sq] = maskKingAttacks(sq);
-
-		std::cout << "Square: " << sq << std::endl;
-		// printBitboard(pawnAttacks[Side::WHITE][sq]);
-		// printBitboard(pawnAttacks[Side::BLACK][sq]);
-
-		printBitboard(kingAttacks[sq]);
-
 	}
 }
 

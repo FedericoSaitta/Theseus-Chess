@@ -64,3 +64,91 @@ Bitboard maskKingAttacks(int square) {
 
 	return attacks;
 }
+
+
+Bitboard maskBishopAttacks(int square) {
+	Bitboard attacks{ 0ULL };
+
+	const int targetRow{ square / 8 }; // target row
+	const int targetFile{ square % 8 }; // target file
+
+	for (int row = targetRow + 1, file = targetFile + 1; row < 7 && file < 7; row++, file++) { setBit(attacks, row * 8 + file); }
+	for (int row = targetRow - 1, file = targetFile + 1; row > 0 && file < 7; row--, file++) { setBit(attacks, row * 8 + file); }
+	for (int row = targetRow + 1, file = targetFile - 1; row < 7 && file > 0; row++, file--) { setBit(attacks, row * 8 + file); }
+	for (int row = targetRow - 1, file = targetFile - 1; row > 0 && file > 0; row--, file--) { setBit(attacks, row * 8 + file); }
+
+	return attacks;
+}
+
+
+Bitboard maskRookAttacks(int square) {
+	Bitboard attacks{ 0ULL };
+
+	const int targetRow{ square / 8 }; // target row
+	const int targetFile{ square % 8 }; // target file
+
+	for (int row = targetRow + 1; row < 7; row++) { setBit(attacks, row * 8 + targetFile); }
+	for (int row = targetRow - 1; row > 0; row--) { setBit(attacks, row * 8 + targetFile); }
+	for (int file = targetFile + 1; file < 7; file++) { setBit(attacks, targetRow * 8 + file); }
+	for (int file = targetFile - 1; file > 0; file--) { setBit(attacks, targetRow * 8 + file); }
+
+	return attacks;
+}
+
+
+Bitboard bishopAttacksOnTheFly(int square, Bitboard blocker) {
+	Bitboard attacks{ 0ULL };
+
+	const int targetRow{ square / 8 }; // target row
+	const int targetFile{ square % 8 }; // target file
+
+	for (int row = targetRow + 1, file = targetFile + 1; row <= 7 && file <= 7; row++, file++) {
+		setBit(attacks, row * 8 + file);
+		if ((1ULL << (row * 8 + file)) & blocker) break;
+	}
+
+	for (int row = targetRow - 1, file = targetFile + 1; row >= 0 && file <= 7; row--, file++) {
+		setBit(attacks, row * 8 + file);
+		if ((1ULL << (row * 8 + file)) & blocker) break;
+	}
+	for (int row = targetRow + 1, file = targetFile - 1; row <= 7 && file >= 0; row++, file--) {
+		setBit(attacks, row * 8 + file);
+		if ((1ULL << (row * 8 + file)) & blocker) break;
+	}
+
+	for (int row = targetRow - 1, file = targetFile - 1; row >= 0 && file >= 0; row--, file--) {
+		setBit(attacks, row * 8 + file);
+		if ((1ULL << (row * 8 + file)) & blocker) break;
+	}
+
+	return attacks;
+}
+
+
+Bitboard rookAttacksOnTheFly(int square, Bitboard blocker) {
+	// generates an attack Bitboard for each square on the board, here we loop till the end of the baord
+	Bitboard attacks{ 0ULL };
+
+	const int targetRow{ square / 8 }; // target row
+	const int targetFile{ square % 8 }; // target file
+
+	for (int row = targetRow + 1; row <= 7; row++) {
+		setBit(attacks, row * 8 + targetFile);
+		if ((1ULL << (row * 8 + targetFile)) & blocker) break;
+	}
+	for (int row = targetRow - 1; row >= 0; row--) {
+		setBit(attacks, row * 8 + targetFile);
+		if ((1ULL << (row * 8 + targetFile)) & blocker) break;
+	}
+
+	for (int file = targetFile + 1; file <= 7; file++) {
+		setBit(attacks, targetRow * 8 + file);
+		if ((1ULL << (targetRow * 8 + file)) & blocker) break;
+	}
+	for (int file = targetFile - 1; file >= 0; file--) {
+		setBit(attacks, targetRow * 8 + file);
+		if ((1ULL << (targetRow * 8 + file)) & blocker) break;
+	}
+
+	return attacks;
+}

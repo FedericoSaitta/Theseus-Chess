@@ -29,7 +29,7 @@ inline void popBit(Bitboard& bb, const int square) { bb &= ~(1ULL << square); }
 [[nodiscard]] inline int popLSB(Bitboard& bb) {
 	assert(bb);
 	int square{ getLSB(bb) };
-	bb &= bb - 1;
+	bb &= bb - 1; // bit hack to remove LSB
 	return square;
 }
 
